@@ -25,7 +25,9 @@ namespace GeekShopping.ProductAPI.Repositories
 
         public async Task<ProductVO> FindById(long id)
         {
-            Product product = await _context.Products.Where(x => x.Id == id).FirstOrDefaultAsync();
+            Product? product =
+                await _context.Products.Where(p => p.Id == id)
+                .FirstOrDefaultAsync();
             return _mapper.Map<ProductVO>(product);
         }
 
@@ -49,7 +51,7 @@ namespace GeekShopping.ProductAPI.Repositories
         {
             try
             {
-                Product product = await _context.Products.Where(x => x.Id == id).FirstOrDefaultAsync();
+                Product? product = await _context.Products.Where(x => x.Id == id).FirstOrDefaultAsync();
                 if (product == null) return false;
                 _ = _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
