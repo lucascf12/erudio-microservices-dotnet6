@@ -7,6 +7,7 @@ using System.Security.Claims;
 using System.Text.Json;
 using Duende.IdentityServer;
 using Duende.IdentityServer.Test;
+using System.Collections.Generic;
 
 namespace IdentityServerHost.Quickstart.UI
 {

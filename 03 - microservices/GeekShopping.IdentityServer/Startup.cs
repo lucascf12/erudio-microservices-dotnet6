@@ -1,8 +1,17 @@
+using System;
+using Duende.IdentityServer.Services;
 using GeekShopping.IdentityServer.Configuration;
+using GeekShopping.IdentityServer.Initializer;
 using GeekShopping.IdentityServer.Model;
 using GeekShopping.IdentityServer.Model.Context;
+using GeekShopping.IdentityServer.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace GeekShopping.IdentityServer
 {
@@ -24,7 +33,10 @@ namespace GeekShopping.IdentityServer
                 UseMySql(connection,
                         new MySqlServerVersion(
                             new Version(8, 0, 5))));
-            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<MySQLContext>().AddDefaultTokenProviders();
+
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<MySQLContext>()
+                .AddDefaultTokenProviders();
 
             var builder = services.AddIdentityServer(options =>
             {
@@ -39,6 +51,9 @@ namespace GeekShopping.IdentityServer
                 .AddInMemoryClients(IdentityConfiguration.Clients)
                 .AddAspNetIdentity<ApplicationUser>();
 
+            services.AddScoped<IDbInitializer, DbInitializer>();
+            services.AddScoped<IProfileService, ProfileServices>();
+
             builder.AddDeveloperSigningCredential();
 
             services.AddControllersWithViews();
@@ -46,7 +61,7 @@ namespace GeekShopping.IdentityServer
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app,
-            IWebHostEnvironment env)
+            IWebHostEnvironment env, IDbInitializer initialiazer)
         {
             if (env.IsDevelopment())
             {
@@ -62,6 +77,8 @@ namespace GeekShopping.IdentityServer
             app.UseRouting();
             app.UseIdentityServer();
             app.UseAuthorization();
+
+            initialiazer.Initialize();
 
             
 

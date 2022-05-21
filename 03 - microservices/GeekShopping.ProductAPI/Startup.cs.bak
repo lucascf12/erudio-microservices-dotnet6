@@ -59,7 +59,7 @@ namespace GeekShopping.ProductAPI
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = @"Enter 'Bearer' [space] and you token!",
-                    Name = "Authorization",
+                    Name = "Authorizaton",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
                     Scheme = "Bearer"
@@ -79,7 +79,8 @@ namespace GeekShopping.ProductAPI
                         In = ParameterLocation.Header
                     },
                     new List<string>()
-                } });                
+                } });
+                ;
             });
         }
 
