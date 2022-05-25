@@ -8,6 +8,6 @@ namespace GeekShopping.CartAPI.Model.Context
 
         public DbSet<Product> Products { get; set; }
         public DbSet<CartDetails> CartDetails { get; set; }
-        public DbSet<CartHeader> CartHeader { get; set; }
+        public DbSet<CartHeaders> CartHeaders { get; set; }
 	}
 }

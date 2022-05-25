@@ -4,7 +4,7 @@ using GeekShopping.CartAPI.Model.Base;
 namespace GeekShopping.CartAPI.Model
 {
     [Table("cart_header")]
-    public class CartHeader : BaseEntity
+    public class CartHeaders : BaseEntity
     {
         [Column("use_id")]
         public string UserId { get; set; }

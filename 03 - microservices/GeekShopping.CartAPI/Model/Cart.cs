@@ -4,7 +4,7 @@ namespace GeekShopping.CartAPI.Model
 {
     public class Cart
     {
-        public CartHeader CartHeader { get; set; }
+        public CartHeaders CartHeaders { get; set; }
         public IEnumerable<CartDetails> CartDetails { get; set; }
 
     }
